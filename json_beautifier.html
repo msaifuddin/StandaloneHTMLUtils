@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Beautifier</title>
+</head>
+<body>
+    <h1>JSON Beautifier</h1>
+    <p>This tool allows you to beautify (also known as "pretty-print") your JSON data, making it easier to read and understand.</p>
+
+    <textarea id="input" placeholder="Paste your JSON data here" style="width: 100%; height: 200px;"></textarea>
+    <button onclick="beautify()">Beautify JSON</button>
+    <textarea id="output" placeholder="Your beautified JSON will appear here" style="width: 100%; height: 200px;"></textarea>
+
+    <h2>How to use</h2>
+    <ol>
+        <li>Paste your JSON data into the top text box.</li>
+        <li>Click the "Beautify JSON" button.</li>
+        <li>Your beautified JSON data will appear in the bottom text box.</li>
+    </ol>
+
+    <p>Note: This tool runs entirely in your browser. No data you enter here is sent to a server or shared in any way.</p>
+
+    <script>
+        function beautify() {
+            var input = document.getElementById("input").value;
+            var output = JSON.stringify(JSON.parse(input), null, 2);
+            document.getElementById("output").value = output;
+        }
+    </script>
+</body>
+</html>

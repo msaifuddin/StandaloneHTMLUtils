@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Contacts Parser</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Contacts Parser</h1>
+    <p>This tool helps you to parse the names and emails from a string of contacts formatted as "Name &lt;Email&gt;". For example, if you enter "John Doe &lt;johndoe@example.com&gt;", the tool will parse it into "Name: John Doe" and "Email: johndoe@example.com".</p>
+
+    <textarea id="input" rows="4" cols="50"></textarea><br><br>
+    <button onclick="parseInput()">Parse</button><br><br>
+    <table id="output">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </table>
+
+    <h2>How to use</h2>
+    <ol>
+        <li>Enter your contacts into the input box, each contact in the format "Name &lt;Email&gt;".</li>
+        <li>Click the "Parse" button.</li>
+        <li>The names and emails will be displayed in the table below.</li>
+    </ol>
+
+    <p>Note: This tool runs entirely in your browser. No data you enter here is sent to a server or shared in any way.</p>
+
+    <script>
+        function parseInput() {
+            const input = document.getElementById("input").value;
+            const table = document.getElementById("output");
+
+            // Clear previous output
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+
+            const regex = /(.+?)[\s]*<(.+?)>/g;
+            let match;
+            while ((match = regex.exec(input)) !== null) {
+                const newRow = table.insertRow(-1);
+                newRow.insertCell(0).innerText = match[1].replace(';', '').trim();
+                newRow.insertCell(1).innerText = match[2].trim();
+            }
+        }
+    </script>
+</body>
+</html>
