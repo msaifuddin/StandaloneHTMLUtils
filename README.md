@@ -4,8 +4,8 @@ A collection of standalone HTML-based utilities designed to work offline and wit
 
 ## Apps Included
 
-1. JSON Beautifier
-2. Email Parser
+1. [JSON Beautifier](json_beautifier.html) - to make your JSON pretty!
+2. [Email Contacts Parser](email_contacts_parser.html) - "John Doe <johndoe<area>@dom.com>", becomes "Name: John Doe" and "Email: johndoe<area>@dom.com"
 3. More to be added...
 
 ## Usage
