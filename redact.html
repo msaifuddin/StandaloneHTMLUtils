@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue@latest"></script>
+  <style>
+    .input-group { margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <h2>Redaction App</h2>
+
+  <p><b>Usage Guide:</b> Paste your text in the input box below and click the "Redact" button. The redacted version of your text will appear in the second box. This tool attempts to redact email addresses and also replaces any text you specify in the "Custom Redaction" fields.</p>
+
+  <p>Paste your text below:</p>
+  <textarea v-model="inputText" rows="10" style="width: 100%;"></textarea>
+
+  <p>Email Redaction Replacement:</p>
+  <input v-model="emailReplacement" type="text" style="width: 100%;">
+
+  <div v-for="(redaction, index) in redactions" :key="index" class="input-group">
+    <input v-model="redaction.find" type="text" placeholder="Text to redact" style="width: 100%;">
+    <input v-model="redaction.replace" type="text" placeholder="Replacement text" style="width: 100%; margin-top: 10px;">
+    <input v-model="redaction.caseSensitive" type="checkbox" style="margin-top: 10px;"> Case Sensitive
+    <button @click="removeRedaction(index)" style="margin-top: 10px;">-</button>
+  </div>
+
+  <button @click="addRedaction" style="margin-top: 10px;">+ Add More Redaction</button>
+  <button @click="redact" style="margin-top: 10px;">Redact</button>
+
+  <p>Redacted text:</p>
+  <textarea v-model="redactedText" rows="10" style="width: 100%;"></textarea>
+
+  <p>Total replacements made: {{totalReplacements}}</p>
+</div>
+
+<footer style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">
+  <p>Note: This tool runs entirely in your browser. No data you enter here is sent to a server or shared in any way.</p>
+</footer>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    inputText: '',
+    redactedText: '',
+    emailReplacement: 'user@contoso.com',
+    redactions: [{ find: '', replace: '', caseSensitive: false }],
+    totalReplacements: 0,
+  },
+  methods: {
+    addRedaction() {
+      this.redactions.push({ find: '', replace: '', caseSensitive: false });
+    },
+    removeRedaction(index) {
+      this.redactions.splice(index, 1);
+    },
+    redact() {
+      let text = this.inputText;
+      let totalReplacements = 0;
+
+      // Email Redaction
+      const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/gi;
+      const matchedEmails = text.match(emailRegex);
+      if (matchedEmails) {
+        totalReplacements += matchedEmails.length;
+        text = text.replace(emailRegex, this.emailReplacement);
+      }
+
+      // Custom Redaction
+      this.redactions.forEach(({ find, replace, caseSensitive }) => {
+        if (find !== '') {
+          const customRegex = new RegExp(find, caseSensitive ? '' : 'gi');
+          const matchedCustoms = text.match(customRegex);
+          if (matchedCustoms) {
+            totalReplacements += matchedCustoms.length;
+            text = text.replace(customRegex, replace);
+          }
+        }
+      });
+
+      this.redactedText = text;
+      this.totalReplacements = totalReplacements;
+    },
+  },
+});
+</script>
+
+</body>
+</html>
