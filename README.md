@@ -7,7 +7,8 @@ A collection of standalone HTML-based utilities designed to work offline and wit
 1. [JSON Beautifier](https://htmlpreview.github.io/?https://raw.githubusercontent.com/msaifuddin/StandaloneHTMLUtils/main/json_beautifier.html) - Make your JSON pretty!
 2. [Email Contacts Parser](https://htmlpreview.github.io/?https://raw.githubusercontent.com/msaifuddin/StandaloneHTMLUtils/main/email_contacts_parser.html) - "John Doe <johndoe<area>@dom.com>", becomes "Name: John Doe" and "Email: johndoe<area>@dom.com"
 3. [URL Decoder](https://htmlpreview.github.io/?https://raw.githubusercontent.com/msaifuddin/StandaloneHTMLUtils/main/URL_decoder.html) - Decode URL encoded strings, then if you like, split the values to a readable format.
-4. More to be added...
+4. [Information Anonymizer](https://htmlpreview.github.io/?https://raw.githubusercontent.com/msaifuddin/StandaloneHTMLUtils/main/redact.html) - Replace email address (via regex) and other details (custom defined), like a search & replace tool.
+5. More to be added...
 
 ## Usage
 
