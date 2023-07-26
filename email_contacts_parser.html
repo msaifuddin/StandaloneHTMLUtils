@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Contacts Parser</title>
     <style>
@@ -13,11 +12,22 @@
         th, td {
             padding: 5px;
         }
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        footer {
+            padding: 10px;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
-    <h1>Email Contacts Parser</h1>
-    <p>This tool helps you to parse the names and emails from a string of contacts formatted as "Name &lt;Email&gt;". For example, if you enter "John Doe &lt;johndoe@example.com&gt;", the tool will parse it into "Name: John Doe" and "Email: johndoe@example.com".</p>
+<h1>Email Contacts Parser</h1>
+    <p>This tool helps you to parse the names and emails from a string of contacts, for example, if you enter "John Doe <<area>johndoe@example.com<area>>", the tool will parse it into "Name: John Doe" and "Email: johndoe@example.com". You can separate your contacts with a comma (,), a semicolon (;), a colon (:), or a newline.</p>
 
     <textarea id="input" rows="4" cols="50"></textarea><br><br>
     <button onclick="parseInput()">Parse</button><br><br>
@@ -35,7 +45,9 @@
         <li>The names and emails will be displayed in the table below.</li>
     </ol>
 
-    <p>Note: This tool runs entirely in your browser. No data you enter here is sent to a server or shared in any way.</p>
+    <footer>
+        <p>Note: This tool runs entirely in your browser. No data you enter here is sent to a server or shared in any way.</p>
+    </footer>
 
     <script>
         function parseInput() {
@@ -51,7 +63,7 @@
             let match;
             while ((match = regex.exec(input)) !== null) {
                 const newRow = table.insertRow(-1);
-                newRow.insertCell(0).innerText = match[1].replace(';', '').trim();
+                newRow.insertCell(0).innerText = match[1].replace(/[,;:]/g, '').trim();
                 newRow.insertCell(1).innerText = match[2].trim();
             }
         }
