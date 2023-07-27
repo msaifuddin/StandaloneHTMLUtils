@@ -4,11 +4,36 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <style>
     .input-group { margin-top: 10px; }
-    footer {
+        body {
+            font-family: Arial;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        textarea {
+            min-height: 200px;
+            margin: 0.5em;
+            resize: vertical;
+            overflow: auto;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+        }
+        footer {
             padding: 10px;
             text-align: center;
             background-color: #f2f2f2;
-    }
+        }
   </style>
 </head>
 <body>
